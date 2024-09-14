@@ -2,9 +2,9 @@
 
 A mod for Balatro that unlocks the Customize Deck menu's potential, allowing users to create new skins and implement them in-game with ease.
 
-## Making a new Deck Skin
+## Creating New Deck Skins
 
-
+Check the /.example/ folder to see how DeckSkins+ add-ons are made and formatted. It's really easy!
 
 ## Installation
 
