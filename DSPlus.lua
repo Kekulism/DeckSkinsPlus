@@ -40,12 +40,12 @@ for file in p:lines() do
         if skin.suit == "D" or skin.suit == "d" or skin.suit == "diamonds" or skin.suit == "Diamonds" then
             G.COLLABS.options.Diamonds[#G.COLLABS.options.Diamonds + 1] = id
             loadNumD = loadNumD + 1
-            G.localization.misc.collabs.Hearts[tostring(loadNumD)] = skin.name
+            G.localization.misc.collabs.Diamonds[tostring(loadNumD)] = skin.name
         end
         if skin.suit == "S" or skin.suit == "s" or skin.suit == "spades" or skin.suit == "Spades" then
             G.COLLABS.options.Spades[#G.COLLABS.options.Spades + 1] = id
             loadNumS = loadNumS + 1
-            G.localization.misc.collabs.Hearts[tostring(loadNumS)] = skin.name
+            G.localization.misc.collabs.Spades[tostring(loadNumS)] = skin.name
         end
 
         local texture1 = "nil"
