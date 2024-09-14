@@ -2,6 +2,7 @@
 
 A mod for Balatro that unlocks the Customize Deck menu's potential, allowing users to create new skins for not just face cards, but ALL cards in the Balatro deck, and implement them in-game with ease.
 DeckSkins+ dyanmically loads new Custom Deck skins from the /skins/ directory. In theory, you can add as many as you want!
+
 ![Deck Customization Menu](https://i.imgur.com/qoIk2fK.gif)
 
 ## Creating New Deck Skins
