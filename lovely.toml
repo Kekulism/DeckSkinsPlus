@@ -14,12 +14,12 @@ pattern = "if _front and _front.suit and (_front.value == 'Jack' or _front.value
 position = "at"
 payload = '''
 local rank_suffix = _front.value
-local position_x = -1
 local _collabb = G.SETTINGS.CUSTOM_DECK.Collabs[_front.suit]
-for k, v in ipairs(G.COLLABS.options[_front.suit][_collabb]) do
-	if v == rank_suffix then position_x = k-1 end
-end
-if _front and _front.suit and position_x ~= -1 then
+if _front and _front.suit and _collabb then
+	local position_x = -1
+	for k, v in ipairs(G.COLLABS.options[_front.suit][_collabb]) do
+		if v == rank_suffix then position_x = k-1 end
+	end
 '''
 match_indent = true
 
@@ -28,7 +28,10 @@ match_indent = true
 target = "functions/misc_functions.lua"
 pattern = "return G.ASSET_ATLAS[_collab..'_'..(G.SETTINGS.colourblind_option and 2 or 1)], G.COLLABS.pos[_front.value]"
 position = "at"
-payload = "return G.ASSET_ATLAS[_collab..'_'..(G.SETTINGS.colourblind_option and 2 or 1)], {x=position_x, y=0}"
+payload = '''
+if position_x > -1 then
+	return G.ASSET_ATLAS[_collab..'_'..(G.SETTINGS.colourblind_option and 2 or 1)], {x=position_x, y=0}
+end'''
 match_indent = true
 
 [[patches]]
