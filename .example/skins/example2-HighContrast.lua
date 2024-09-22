@@ -17,7 +17,14 @@ local skin = {
     ---                         If you don't want to have an alternate version of your skin with high contrast colors,
     ---                         Then set this value to nil. If you do want to support high contrast, then keep it
     ---                         looking like this, where it's set to the name of another pair of textures.
-    highContrastTexture = "exampleHC_2.png"
+    highContrastTexture = "exampleHC_2.png",
+	--- Cards - This an OPTIONAL value.
+	---         This line, the cards table, should only be declared if your texture file(s) do not contain every card. If your
+	---         texture only includes face cards, face cards and ace, or any other combination of cards that isn't the normal
+	---         spritesheet format, then this line should kept as nil, or you could alternatively remove the entire line.
+	---
+	---         To see the cards table in action, and how to format the cards table, see example3-SpecificCards.lua.
+	cards = nil
 }
 
 return skin

@@ -3,37 +3,47 @@ version = "1.0.0"
 dump_lua = true
 priority = 100000000
 
+# ==========================================================================
 # Big thank you to hastagguigui and OneSuchKeeper for the following patches!
+# ==========================================================================
 
 [[patches]]
 [patches.pattern]
 target = "functions/misc_functions.lua"
 pattern = "if _front and _front.suit and (_front.value == 'Jack' or _front.value == 'Queen' or _front.value == 'King') then"
 position = "at"
-payload = "if _front and _front.suit then"
+payload = '''
+local rank_suffix = _front.value
+local position_x = -1
+local _collabb = G.SETTINGS.CUSTOM_DECK.Collabs[_front.suit]
+for k, v in ipairs(G.COLLABS.options[_front.suit][_collabb]) do
+	if v == rank_suffix then position_x = k-1 end
+end
+if _front and _front.suit and position_x ~= -1 then
+'''
 match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = "globals.lua"
-pattern = "self.METRICS = {"
-position = "before"
-payload = '''
-G.COLLABS.pos['2'] = {x=0,y=0}
-G.COLLABS.pos['3'] = {x=1,y=0}
-G.COLLABS.pos['4'] = {x=2,y=0}
-G.COLLABS.pos['5'] = {x=3,y=0}
-G.COLLABS.pos['6'] = {x=4,y=0}
-G.COLLABS.pos['7'] = {x=5,y=0}
-G.COLLABS.pos['8'] = {x=6,y=0}
-G.COLLABS.pos['9'] = {x=7,y=0}
-G.COLLABS.pos['10'] = {x=8,y=0}
-G.COLLABS.pos['Jack'] = {x=9,y=0}
-G.COLLABS.pos['Queen'] = {x=10,y=0}
-G.COLLABS.pos['King'] = {x=11,y=0}
-G.COLLABS.pos['Ace'] = {x=12,y=0}
-'''
+target = "functions/misc_functions.lua"
+pattern = "return G.ASSET_ATLAS[_collab..'_'..(G.SETTINGS.colourblind_option and 2 or 1)], G.COLLABS.pos[_front.value]"
+position = "at"
+payload = "return G.ASSET_ATLAS[_collab..'_'..(G.SETTINGS.colourblind_option and 2 or 1)], {x=position_x, y=0}"
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''for k, v in pairs(G.COLLABS.options[_suit]) do'''
+position = "at"
+payload = '''
+for _, skin in ipairs(G.EXTRA_SKINS_NAMES[_suit]) do
+	loc_options[#loc_options+1] = skin
+end
+sendDebugMessage(tprint(G.EXTRA_SKINS_NAMES))
+for k, v in pairs(G.COLLABS.list[_suit]) do'''
+match_indent = true
+
 
 [[patches]]
 [patches.pattern]
@@ -53,8 +63,51 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
+target = "globals.lua"
+pattern = "self.METRICS = {"
+position = "before"
+payload = '''self.COLLABS = {
+list = {
+	Spades = {"default", "collab_TW"},
+	Hearts = {"default", "collab_AU"},
+	Clubs = {"default", "collab_VS"},
+	Diamonds = {"default", "collab_DTD"},
+},
+options = {
+    Spades = {
+        default = {},
+        collab_TW = {"Jack", "Queen", "King"},
+    },
+    Hearts = {
+        default = {},
+        collab_AU = {"Jack", "Queen", "King"},
+    },
+    Clubs = {
+        default = {},
+        collab_VS = {"Jack", "Queen", "King"}
+    },
+    Diamonds = {
+    	default = {},
+    	collab_DTD = {"Jack", "Queen", "King"}
+    }
+},
+}'''
+
+match_indent = true
+[[patches]]
+[patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = "for i = 1, 3 do"
 position = "at"
 payload = "for i = 1, #faces do"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "G.SETTINGS.CUSTOM_DECK.Collabs[args.cycle_config.curr_suit] = G.COLLABS.options[args.cycle_config.curr_suit][args.to_key] or 'default'"
+position = "at"
+payload = '''
+G.SETTINGS.CUSTOM_DECK.Collabs[args.cycle_config.curr_suit] = G.COLLABS.list[args.cycle_config.curr_suit][args.to_key] or 'default'
+'''
 match_indent = true
