@@ -12,7 +12,7 @@ sendDebugMessage("Launching DeckSkins+")
 
 local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
-local usable_path = mod_path:gsub("[/\\]", "//")
+local usable_path = path:match("Mods/[^/]+")
 local loadNumC, loadNumH, loadNumD, loadNumS = 0, 0, 0, 0
 
 
@@ -35,10 +35,10 @@ function recursiveEnumerate(folder, fileTree)
 	return fileTree
 end
 
-local pp = recursiveEnumerate("Mods/DeckSkinsPlus/skins", "")
+local pp = recursiveEnumerate(usable_path .. "/skins", "")
 local files = {}
 for s in pp:gmatch("[^\r\n]+") do
-	files[#files + 1] = s:gsub("Mods/DeckSkinsPlus/skins/", "")
+	files[#files + 1] = s:gsub(usable_path .. "/skins/", "")
 end
 sendDebugMessage(tprint(files))
 
