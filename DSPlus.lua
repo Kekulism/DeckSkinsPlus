@@ -12,7 +12,7 @@ sendDebugMessage("Launching DeckSkins+")
 
 local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
-local usable_path = path:match("Mods/[^/]+")
+local usable_path = mod_path:match("Mods/[^/]+")
 local loadNumC, loadNumH, loadNumD, loadNumS = 0, 0, 0, 0
 
 
