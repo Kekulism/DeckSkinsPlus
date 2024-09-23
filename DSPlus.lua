@@ -87,9 +87,14 @@ for _, file in ipairs(files) do
 			cards[i] = cardShorts[card:sub(1, 1)] or normalized
 		end
 
+		local allSuits = skin.suit:lower() == "all" or skin.suit:lower() == "a" or skin.suit == "*"
 		for suit, short in pairs(suits) do
-			if skin.suit:lower() == short:lower() or skin.suit:lower() == suit:lower() then
+			if allSuits or skin.suit:lower() == short:lower() or skin.suit:lower() == suit:lower() then
 				loadSkin(skin, id, suit, cards)
+
+				if allSuits then
+					G.COLLABS.options[suit][id].ALL_SUITS = true
+				end
 			end
 		end
 

@@ -29,8 +29,28 @@ target = "functions/misc_functions.lua"
 pattern = "return G.ASSET_ATLAS[_collab..'_'..(G.SETTINGS.colourblind_option and 2 or 1)], G.COLLABS.pos[_front.value]"
 position = "at"
 payload = '''
+
+local offset_y = 0
+if G.COLLABS.options[_front.suit][_collab].ALL_SUITS then
+    if _front.suit == "Hearts" then
+        offset_y = 0
+    end
+
+    if _front.suit == "Clubs" then
+        offset_y = 1
+    end
+
+    if _front.suit == "Diamonds" then
+        offset_y = 2
+    end
+
+    if _front.suit == "Spades" then
+        offset_y = 3
+    end
+end
+
 if position_x > -1 then
-	return G.ASSET_ATLAS[_collab..'_'..(G.SETTINGS.colourblind_option and 2 or 1)], {x=position_x, y=0}
+	return G.ASSET_ATLAS[_collab..'_'..(G.SETTINGS.colourblind_option and 2 or 1)], {x=position_x, y=offset_y}
 end'''
 match_indent = true
 
