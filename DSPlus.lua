@@ -181,13 +181,14 @@ SMODS.current_mod.credits_tab = function()
 						config = { align = "cm", padding = 0 },
 						nodes = {
 							{ n = G.UIT.T, config = { text = '#Guigui', scale = text_scale * 0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true } },
+						}
 					},
 					{
 						n = G.UIT.R,
 						config = { align = "cm", padding = 0 },
 						nodes = {
 							{ n = G.UIT.T, config = { text = 'Sbax', scale = text_scale * 0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true } },
-					}
+						}
 					},
 				}
 			},
