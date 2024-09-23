@@ -3,15 +3,17 @@
 
 local skin = {
 	--- Name - The name of your custom skin. This will be shown on the Customize Deck UI in-game.
-	name = "FullTexture",
+	name = "Full Texture!",
 	--- Suit - This is the suit that your skin is assigned to-- Hearts, Clubs, Diamonds, or Spades.
 	---        This example showcases a texture containing all 4 suits, this can be set as
-    ---        A, a, All, all or *
+    ---        "A", "a", "All", "all" or "*".
+	---
+	---        To see how to set your skin to only replace one suit, check the other examples.
 	suit = "*",
 	--- Texture - This is the name of your texture that will be used for you skin.
 	---           It should correspond to two files of the same name in the /assets/1x/ and /assets/2x/ folders.
 	---           Like the lua file, make sure its filename is unique!
-	texture = "FullTexture.png",
+	texture = "exampleFT.png",
 	--- High Contrast Texture - This is an OPTIONAL value.
 	---                         If you don't want to have an alternate version of your skin with high contrast colors,
 	---                         Then keep this value set to nil, or delete the entire line. If you do want that, then replace

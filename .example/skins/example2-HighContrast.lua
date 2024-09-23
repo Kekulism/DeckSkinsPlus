@@ -8,6 +8,10 @@ local skin = {
     ---        For this example, the skin is set to "H", so the suit is Hearts.
     ---        The code will also accept a lowercase letter (like "h"),
     ---        or the suit name in all lowercase or with the first letter capitalized (like "Hearts" or "hearts")
+	---
+	---        This value can also be set to all suits, indicating to DeckSkins+ that your texture skin's texture
+	---        includes all suits. To do this, set the suit value to "A", "a", "All", "all" or "*". To see this
+	---        in action, check example4-FullTexture.lua.
     suit = "H",
     --- Texture - This is the name of your texture that will be used for you skin.
     ---           It should correspond to two files of the same name in the /assets/1x/ and /assets/2x/ folders.
