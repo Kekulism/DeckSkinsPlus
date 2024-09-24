@@ -83,7 +83,7 @@ end
 local function loadSkin(skin, id, suit, cards)
 	local skinName = getSkinName(skin, suit)
 	if not skinName then
-		return
+		return false
 	end
 
 	G.COLLABS.options[suit][id] = cards
@@ -92,6 +92,8 @@ local function loadSkin(skin, id, suit, cards)
 	G.EXTRA_SKINS[suit][loadCounts[suit]] = id
 	G.EXTRA_SKINS_NAMES[suit][loadCounts[suit]] = skinName
 	sendDebugMessage(tprint(G.EXTRA_SKINS_NAMES[suit]))
+
+	return true
 end
 
 for _, file in ipairs(files) do
@@ -115,9 +117,9 @@ for _, file in ipairs(files) do
         local allSuits = skin.suit:lower() == "all" or skin.suit:lower() == "a" or skin.suit == "*"
         for suit, aliases in pairs(suits) do
             if allSuits or suitMatches(skin.suit, aliases) then
-                loadSkin(skin, id, suit, cards)
+                local loaded = loadSkin(skin, id, suit, cards)
 
-				if allSuits then
+				if loaded and allSuits then
 					G.COLLABS.options[suit][id].ALL_SUITS = true
 				end
             end
