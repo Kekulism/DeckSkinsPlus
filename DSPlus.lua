@@ -16,21 +16,21 @@ local usable_path = mod_path:match("Mods/[^/]+")
 sendDebugMessage("Mod Path: " .. usable_path)
 
 function recursiveEnumerate(folder)
-    local fileTree = ""
-    for _, file in ipairs(love.filesystem.getDirectoryItems(folder)) do
-        local path = folder .. "/" .. file
-        local info = love.filesystem.getInfo(path)
-        fileTree = fileTree .. "\n" .. path .. (info.type == "directory" and " (DIR)" or "")
-        if info.type == "directory" then
-            fileTree = fileTree .. recursiveEnumerate(path)
-        end
-    end
-    return fileTree
+	local fileTree = ""
+	for _, file in ipairs(love.filesystem.getDirectoryItems(folder)) do
+		local path = folder .. "/" .. file
+		local info = love.filesystem.getInfo(path)
+		fileTree = fileTree .. "\n" .. path .. (info.type == "directory" and " (DIR)" or "")
+		if info.type == "directory" then
+			fileTree = fileTree .. recursiveEnumerate(path)
+		end
+	end
+	return fileTree
 end
 
 local files = {}
 for s in recursiveEnumerate(usable_path .. "/skins"):gmatch("[^\r\n]+") do
-    files[#files + 1] = s:gsub(usable_path .. "/skins/", "")
+	files[#files + 1] = s:gsub(usable_path .. "/skins/", "")
 end
 sendDebugMessage(tprint(files))
 
@@ -38,10 +38,10 @@ sendDebugMessage(tprint(files))
 --- Load Skins ---
 ------------------
 local loadCounts = {
-    Hearts = 0,
-    Clubs = 0,
-    Diamonds = 0,
-    Spades = 0
+	Hearts = 0,
+	Clubs = 0,
+	Diamonds = 0,
+	Spades = 0
 }
 
 local suits = {
@@ -53,15 +53,15 @@ local suits = {
 
 G.EXTRA_SKINS, G.EXTRA_SKINS_NAMES = {}, {}
 for suit in pairs(suits) do
-    G.EXTRA_SKINS[suit], G.EXTRA_SKINS_NAMES[suit] = {}, {}
+	G.EXTRA_SKINS[suit], G.EXTRA_SKINS_NAMES[suit] = {}, {}
 end
 
 local function suitMatches(skinSuit, suitAliases)
-    for _, alias in ipairs(suitAliases) do
-        if skinSuit:lower() == alias:lower() then
-            return true
-        end
-    end
+	for _, alias in ipairs(suitAliases) do
+		if skinSuit:lower() == alias:lower() then
+			return true
+		end
+	end
 end
 
 local function getSkinName(skin, suit)
@@ -78,7 +78,6 @@ local function getSkinName(skin, suit)
 		end
 	end
 end
-
 
 local function loadSkin(skin, id, suit, cards)
 	local skinName = getSkinName(skin, suit)
@@ -97,56 +96,61 @@ local function loadSkin(skin, id, suit, cards)
 end
 
 for _, file in ipairs(files) do
-    sendDebugMessage(file .. " found!")
+	sendDebugMessage(file .. " found!")
 
-    if file:match("%.lua$") then
-        local skin = SMODS.load_file("skins/" .. file)()
-        local id = file:sub(1, -5)
+	if file:match("%.lua$") then
+		local skin = SMODS.load_file("skins/" .. file)()
+		local id = file:sub(1, -5)
 
-        sendDebugMessage(file .. " loaded as " .. id)
+		sendDebugMessage(file .. " loaded as " .. id)
 
-        local defaultCards = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" }
-        local cardShorts = { J = "Jack", Q = "Queen", K = "King", A = "Ace" }
+		local defaultCards = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"}
+		local cardShorts = {
+			J = "Jack",
+			Q = "Queen",
+			K = "King",
+			A = "Ace"
+		}
 
-        local cards = skin.cards or defaultCards
-        for i, card in ipairs(cards) do
-            local normalized = card:lower():gsub("^%l", string.upper)
-            cards[i] = cardShorts[card:sub(1, 1)] or normalized
-        end
+		local cards = skin.cards or defaultCards
+		for i, card in ipairs(cards) do
+			local normalized = card:lower():gsub("^%l", string.upper)
+			cards[i] = cardShorts[card:sub(1, 1)] or normalized
+		end
 
-        local allSuits = skin.suit:lower() == "all" or skin.suit:lower() == "a" or skin.suit == "*"
-        for suit, aliases in pairs(suits) do
-            if allSuits or suitMatches(skin.suit, aliases) then
-                local loaded = loadSkin(skin, id, suit, cards)
+		local allSuits = skin.suit:lower() == "all" or skin.suit:lower() == "a" or skin.suit == "*"
+		for suit, aliases in pairs(suits) do
+			if allSuits or suitMatches(skin.suit, aliases) then
+				local loaded = loadSkin(skin, id, suit, cards)
 
 				if loaded and allSuits then
 					G.COLLABS.options[suit][id].ALL_SUITS = true
 				end
-            end
-        end
+			end
+		end
 
-        local texture1, texture2 = skin.texture, skin.highContrastTexture or skin.texture
-        SMODS.Atlas {
-            key = id .. "_1",
-            path = texture1,
-            px = 71,
-            py = 95,
-            atlas_table = 'ASSET_ATLAS',
-            prefix_config = {
+		local texture1, texture2 = skin.texture, skin.highContrastTexture or skin.texture
+		SMODS.Atlas {
+			key = id .. "_1",
+			path = texture1,
+			px = 71,
+			py = 95,
+			atlas_table = 'ASSET_ATLAS',
+			prefix_config = {
 				key = false
 			}
-        }
-        SMODS.Atlas {
-            key = id .. "_2",
-            path = texture2,
-            px = 71,
-            py = 95,
-            atlas_table = 'ASSET_ATLAS',
-            prefix_config = {
+		}
+		SMODS.Atlas {
+			key = id .. "_2",
+			path = texture2,
+			px = 71,
+			py = 95,
+			atlas_table = 'ASSET_ATLAS',
+			prefix_config = {
 				key = false
 			}
-        }
-    end
+		}
+	end
 end
 
 ----------------------------
