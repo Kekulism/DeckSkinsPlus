@@ -43,11 +43,12 @@ local loadCounts = {
 	Diamonds = 0,
 	Spades = 0
 }
+
 local suits = {
-	Hearts = "H",
-	Clubs = "C",
-	Diamonds = "D",
-	Spades = "S"
+	Hearts = {"Hearts", "hearts", "H", "h"},
+	Clubs = {"Clubs", "clubs", "C", "c"},
+	Diamonds = {"Diamonds", "diamonds", "D", "d"},
+	Spades = {"Spades", "spades", "S", "s"}
 }
 
 G.EXTRA_SKINS, G.EXTRA_SKINS_NAMES = {}, {}
@@ -55,13 +56,43 @@ for suit in pairs(suits) do
 	G.EXTRA_SKINS[suit], G.EXTRA_SKINS_NAMES[suit] = {}, {}
 end
 
+local function suitMatches(skinSuit, suitAliases)
+	for _, alias in ipairs(suitAliases) do
+		if skinSuit:lower() == alias:lower() then
+			return true
+		end
+	end
+end
+
+local function getSkinName(skin, suit)
+	if type(skin.name) == "string" then
+		return skin.name
+	end
+
+	if type(skin.name) == "table" then
+		local aliases = suits[suit]
+		for _, alias in ipairs(aliases) do
+			if skin.name[alias] then
+				return skin.name[alias]
+			end
+		end
+	end
+end
+
 local function loadSkin(skin, id, suit, cards)
+	local skinName = getSkinName(skin, suit)
+	if not skinName then
+		return false
+	end
+
 	G.COLLABS.options[suit][id] = cards
 	G.COLLABS.list[suit][#G.COLLABS.list[suit] + 1] = id
 	loadCounts[suit] = loadCounts[suit] + 1
 	G.EXTRA_SKINS[suit][loadCounts[suit]] = id
-	G.EXTRA_SKINS_NAMES[suit][loadCounts[suit]] = skin.name
+	G.EXTRA_SKINS_NAMES[suit][loadCounts[suit]] = skinName
 	sendDebugMessage(tprint(G.EXTRA_SKINS_NAMES[suit]))
+
+	return true
 end
 
 for _, file in ipairs(files) do
@@ -88,11 +119,11 @@ for _, file in ipairs(files) do
 		end
 
 		local allSuits = skin.suit:lower() == "all" or skin.suit:lower() == "a" or skin.suit == "*"
-		for suit, short in pairs(suits) do
-			if allSuits or skin.suit:lower() == short:lower() or skin.suit:lower() == suit:lower() then
-				loadSkin(skin, id, suit, cards)
+		for suit, aliases in pairs(suits) do
+			if allSuits or suitMatches(skin.suit, aliases) then
+				local loaded = loadSkin(skin, id, suit, cards)
 
-				if allSuits then
+				if loaded and allSuits then
 					G.COLLABS.options[suit][id].ALL_SUITS = true
 				end
 			end
