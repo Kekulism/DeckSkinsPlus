@@ -15,7 +15,8 @@ Check the /.example/ folder for more details on how DeckSkins+ add-ons are forma
 
 This mod requires [Lovely](https://github.com/ethangreen-dev/lovely-injector) and [Steammodded](https://github.com/Steamopollys/Steamodded), without these dependencies this mod will not function.
 
-To install DeckSkins+, download the contents of this repo as a zip file and extract it into your Balatro mods folder.
+To install DeckSkins+, download the contents of this repo as a zip file and extract it into your Balatro mods folder. 
+Inside the Balatro mods folder, make sure the folder you place the contents of the repo does not end with `-main`! Name the folder something like "DeckSkinsPlus".
 
 ## Credits
 
