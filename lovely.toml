@@ -91,27 +91,31 @@ pattern = "self.METRICS = {"
 position = "before"
 payload = '''self.COLLABS = {
 list = {
-	Spades = {"default", "collab_TW"},
-	Hearts = {"default", "collab_AU"},
-	Clubs = {"default", "collab_VS"},
-	Diamonds = {"default", "collab_DTD"},
+    Spades = {"default", "collab_TW", "collab_CYP"},
+    Hearts = {"default", "collab_AU", "collab_TBoI"},
+    Clubs = {"default", "collab_VS", "collab_STS"},
+    Diamonds = {"default", "collab_DTD", "collab_SV"},
 },
 options = {
     Spades = {
         default = {},
         collab_TW = {"Jack", "Queen", "King"},
+        collab_CYP = {"Jack", "Queen", "King"}
     },
     Hearts = {
         default = {},
         collab_AU = {"Jack", "Queen", "King"},
+        collab_TBoI = {"Jack", "Queen", "King"}
     },
     Clubs = {
         default = {},
-        collab_VS = {"Jack", "Queen", "King"}
+        collab_VS = {"Jack", "Queen", "King"},
+        collab_STS = {"Jack", "Queen", "King"}
     },
     Diamonds = {
-    	default = {},
-    	collab_DTD = {"Jack", "Queen", "King"}
+        default = {},
+        collab_DTD = {"Jack", "Queen", "King"},
+        collab_SV = {"Jack", "Queen", "King"}
     }
 },
 }'''
