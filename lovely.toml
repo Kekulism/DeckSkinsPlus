@@ -77,12 +77,11 @@ payload = "local faces = {'A','K','Q','J','T','9','8','7','6','5','4','3','2'}"
 match_indent = true
 
 [[patches]]
-[patches.pattern]
+[patches.regex]
 target = "functions/UI_definitions.lua"
-pattern = "4*G.CARD_W,"
+pattern = '''(?<indent>[\t ]*)4\*G\.CARD_W,'''
 position = "at"
-payload = "8*G.CARD_W,"
-match_indent = true
+payload = '''8*G.CARD_W,'''
 
 [[patches]]
 [patches.pattern]
