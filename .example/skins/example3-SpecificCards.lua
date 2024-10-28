@@ -1,47 +1,61 @@
+--- This file should be placed in the 'DeckSkinsPlus/skins directory'
 --- The file name of this lua file is important, it will act as the skin's ID.
 --- Make sure to name it something that another modder is unlikely to use!
 
 local skin = {
-    --- Name - The name of your custom skin. This will be shown on the Customize Deck UI in-game.
-	name = "Just Faces",
-    --- Suit - This is the suit that your skin is assigned to-- Hearts, Clubs, Diamonds, or Spades.
-    ---        For this example, the skin is set to "S", so the suit is Spades.
-    ---        The code will also accept a lowercase letter (like "s"),
-    ---        or the suit name in all lowercase or with the first letter capitalized (like "Clubs" or "clubs")
+	--- Suits - REQUIRED - string or array of strings
+	---    This is the id(s) of the suit(s) your skin is applied to. 
+	---    Use a string for a single suit or an array of strings if your texture contains multiple.
+	---    The default suit keys are: 'Hearts', 'Clubs', 'Diamonds', 'Spades'
 	---
-	---        This value can also be set to all suits, indicating to DeckSkins+ that your texture skin's texture
-	---        includes all suits. To do this, set the suit value to "A", "a", "All", "all" or "*". To see this
-	---        in action, check example4-FullTexture.lua.
-    suit = "S",
-    --- Texture - This is the name of your texture that will be used for you skin.
-    ---           It should correspond to two files of the same name in the /assets/1x/ and /assets/2x/ folders.
-    ---           Like the lua file, make sure its filename is unique!
-    texture = "exampleJF.png",
-    --- High Contrast Texture - This is an OPTIONAL value.
-    ---                         If you don't want to have an alternate version of your skin with high contrast colors,
-    ---                         Then keep this value set to nil. If you do want to support high contrast, then replace
-    ---                         the nil with another texture file name, like "example_2.png". Make sure its wrapped in quotes!
+	---    To see multiple suits in action, see example4-FullTexture.lua.
+	suits = 'Spades',
+
+	--- Ranks - REQUIRED - string or array of strings
+	---    This is the id(s) of the rank(s) your skin is applied to.
+	---    Use a string for a single rank or an array of string if your texture contains multiple
+	---    The default rank keys are: '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', "King", "Ace"
+	ranks = { 'Jack', 'Queen', "King" },
+	
+	--- Texture - REQUIRED - string 
+	---    This is the path to the texture used for the low contrast version of your skin.
+	---    It should correspond to two files of the same name in the DeckSkinsPlus/assets/1x/ and DeckSkinsPlus/assets/2x/ folders.
+    ---    Like the lua file, make sure its filename is unique!
+	texture = 'exampleJF.png',
+	
+	--- High Contrast Texture - OPTIONAL - string
+	---    This is the path to the texture used for the high contrast version of your skin.
+    ---    If this value is nil the low contrast texture will be used instead
+	---    It should correspond to two files of the same name in the DeckSkinsPlus/assets/1x/ and DeckSkinsPlus/assets/2x/ folders.
+    ---    Like the lua file, make sure its filename is unique!
+	---
+	---    To see the highContrastTexture value in action, see example2-HighContrast.lua.
     highContrastTexture = nil,
-	--- Cards - This an OPTIONAL value.
-	---         This line, the cards table, should only be declared if your texture file(s) do not contain every card. If your
-	---         texture only includes face cards, face cards and ace, or any other combination of cards that isn't the normal
-	---         spritesheet format, then this line should be set to nil, or you could alternatively remove the entire line.
-	---
-	---         By default, the value of cards will be set to the following if the table is set to nil or if the line is removed:
-	---         { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" }
-	---
-	---         By setting the values of this table ourselves, we are specifying to DeckSkins+ which cards are in your texture file,
-	---         and what order they appear in. In the texture file for this skin, "exampleJF.png", you'll notice that it only has
-	---         3 cards in it, and from left to right, the order matches what is specified below in the cards table. The order of
-	---         these cards is VERY important-- make sure they match, because if they don't you'll get fake cards that have the
-	---         appearance of one card but in reality are actually a completely different card.
-	---
-	---         Also, as you can see below, we've specified the Jack, Queen, and King with just the letters they begin with.
-	---         The code will accept either the first letters of the Jack, Queen, King, or Ace whether or not they are capitalized.
-	---         (like "J" or "j", "Q" or "q", "K", or "k", and "A" or "a")
-	---         The code will also accept the full names of the cards, whether or not their first letters are capitalized.
-	---         (like "Jack" or "jack", "Queen" or "queen", "King" or "king", and "Ace" or "ace")
-	cards = { "J", "Q", "K" }
+	
+	--- Pixels X - OPTIONAL - int
+	---    The width of a card in your texture in pixels.
+	---    Will default to '71' if nil
+	pixelsX = 71,
+	
+	--- Pixels Y - OPTIONAL - int
+	---    The height of a card in your texture in pixels.
+	---    Will default to '95' if nil
+	pixelsY = 95,
+	
+	--- Position Style - OPTIONAL - string
+	---    This determines the order cards are taken from your texture.
+	---    If this value is nil will default to 'suit'
+	---    Use 'collab' if your texture matches collab skin layout (Jack-King).
+	---    Use 'suit' if your texture matches a full rank layout (2-Ace)
+	---    Use 'deck' if your texture matches a deck layout (full ranks for top to bottom (Hearts, Clubs, Diamonds, Spades), you will likely need to use this if your texture contains multiple suits). See example4-FullTexture.lua
+	posStyle = 'collab',
+	
+	--- loc_text - OPTIONAL - Table of language ids to string
+	---    This is the name of your skin
+	---    If this value is nil the ID will be used instead
+	loc_text = {
+		['en-us'] = 'Just Faces'
+	}
 }
 
 return skin
