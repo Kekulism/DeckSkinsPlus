@@ -6,18 +6,22 @@ local skin = {
 	--- Suits - REQUIRED - string or array of strings
 	---    This is the id(s) of the suit(s) your skin is applied to. 
 	---    Use a string for a single suit or an array of strings if your texture contains multiple.
-	---    The default suit keys are: 'Hearts', 'Clubs', 'Diamonds', 'Spades'
+	---    The string 'Standard' may be used to apply you skin to the four standard suits:
+	---    'Hearts', 'Clubs', 'Diamonds', 'Spades'
+	---	   If your skin applies to multiple suits, you'll likely want to use the 'deck' posStyle. See posStyle below.
 	---
 	---    To see multiple suits in action, see example4-FullTexture.lua.
 	suits = 'Clubs',
 
-	--- Ranks - REQUIRED - string or array of strings
+	--- Ranks - OPTIONAL - string or array of strings
 	---    This is the id(s) of the rank(s) your skin is applied to.
 	---    Use a string for a single rank or an array of string if your texture contains multiple
+	---    The string 'Standard' may be used may be to apply you skin to the 13 standard ranks: 
 	---    The default rank keys are: '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', "King", "Ace"
+	---    If this value is nil, the Standard ranks will be used.
 	---
 	---    To see more specific suits in action, see example3-SpecificCards.lua.
-	ranks = { '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', "King", "Ace" },
+	ranks = 'Standard',
 	
 	--- Texture - REQUIRED - string 
 	---    This is the path to the texture used for the low contrast version of your skin.
@@ -49,12 +53,12 @@ local skin = {
 	---    If this value is nil will default to 'suit'
 	---    Use 'collab' if your texture matches collab skin layout (Jack-King). See example3-SpecificCards.lua
 	---    Use 'suit' if your texture matches a full rank layout (2-Ace)
-	---    Use 'deck' if your texture matches a deck layout (full ranks for top to bottom (Hearts, Clubs, Diamonds, Spades), you will likely need to use this if your texture contains multiple suits). See example4-FullTexture.lua
+	---    Use 'deck' if your texture matches a deck layout (full ranks for each suit top to bottom, you will likely need to use this if your texture contains multiple suits). See example4-FullTexture.lua
 	posStyle = 'suit',
 	
 	--- loc_text - OPTIONAL - Table of language ids to string
 	---    This is the name of your skin
-	---    If this value is nil the ID will be used instead
+	---    If this value is nil the name of this lua file will be used instead
 	loc_text = {
 		['en-us'] = 'New Skin!'
 	}
