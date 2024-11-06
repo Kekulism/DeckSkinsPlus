@@ -15,7 +15,7 @@ Inside the Balatro mods folder, make sure the folder you place the contents of t
 
 Making an add-on for DeckSkinsLite is super easy!
 All you need is a small .lua file that contains a table of variables in the /skins/ folder, and a 1 or more textures in the /assets/ folder.
-Check the /.example/ folder for more details on how DeckSkinsLite add-ons are formatted, or check the Documentation for more details!
+Check the /.example/ folder for more details on how DeckSkinsLite add-ons are formatted, [or check the Documentation for more details!](https://github.com/Kekulism/DeckSkinsPlus/wiki/Skin-Documentation)
 
 ## Credits
 
