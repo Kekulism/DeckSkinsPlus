@@ -1,6 +1,6 @@
 --- STEAMODDED HEADER
 --- MOD_NAME: DeckSkinsLite
---- MOD_ID: DSlite
+--- MOD_ID: DSplus
 --- MOD_AUTHOR: [Keku]
 --- MOD_DESCRIPTION: A compatibility mod that allows old DeckSkins+ skins to be loaded by Steammodded's DeckSkin object! This mod will find all .lua files inside the /skins/ directory in this mod's folder and load each of them as an additional option in the Customize Decks menu.
 --- BADGE_COLOR: 52d49f
