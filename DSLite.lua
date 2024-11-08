@@ -102,7 +102,7 @@ local function loadAtlas(id, texture, contrast, _px, _py)
 end
 
 local function langInTable(lang, names)
-	for skin_lang, lang_name in names do
+	for skin_lang, lang_name in pairs(names) do
 		if skin_lang == lang then
 			return lang_name
 		end
